@@ -858,15 +858,15 @@
     (function() {
       var el = document.getElementById('visit-counter');
       var stages = [
-        { target: 1000000000, duration: 12500 },
+        { target: 1000000000, duration: 5000 },
         { target: null,       duration: 0, label: '1B+' }
       ];
       var idx = 0, startTime = null, startVal = 0;
 
       function fmt(n) {
         if (n >= 1000000000) return '1B+';
-        if (n >= 1000000)    return (n / 1000000).toFixed(1) + 'M';
-        if (n >= 1000)       return Math.round(n / 1000) + 'K';
+        if (n >= 1000000)    return (n / 1000000).toFixed(2) + 'M';
+        if (n >= 1000)       return (n / 1000).toFixed(1) + 'K';
         return Math.round(n).toString();
       }
 
@@ -882,14 +882,22 @@
         if (p < 1) {
           requestAnimationFrame(run);
         } else {
-          startVal = s.target; startTime = null; idx++;
-          if (idx < stages.length) setTimeout(function(){ requestAnimationFrame(run); }, 120);
-          else el.textContent = '1B+';
+          startVal = s.target; 
+          startTime = null; 
+          idx++;
+          if (idx < stages.length) {
+            requestAnimationFrame(run);
+          } else {
+            el.textContent = '1B+';
+          }
         }
       }
 
       new IntersectionObserver(function(e, o) {
-        if (e[0].isIntersecting) { o.disconnect(); setTimeout(function(){ requestAnimationFrame(run); }, 300); }
+        if (e[0].isIntersecting) { 
+          o.disconnect(); 
+          setTimeout(function(){ requestAnimationFrame(run); }, 300); 
+        }
       }, { threshold: 0.5 }).observe(el);
     })();
 
