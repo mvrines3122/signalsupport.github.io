@@ -858,7 +858,9 @@
     (function() {
       var el = document.getElementById('visit-counter');
       var stages = [
-        { target: 1000000000, duration: 2500 },
+        { target: 100000, duration: 1000 },
+        { target: 500000, duration: 4000 },
+        { target: 1000000000, duration: 10000 },
         { target: null,       duration: 0, label: '1B+' }
       ];
       var idx = 0, startTime = null, startVal = 0;
