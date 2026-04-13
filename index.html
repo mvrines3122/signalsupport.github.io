@@ -854,52 +854,53 @@
   </div>
 
   <script>
-    // ── VISIT COUNTER ──
-    (function() {
-      var el = document.getElementById('visit-counter');
-      var stages = [
-        { target: 1000000000, duration: 5000 },
-        { target: null,       duration: 0, label: '1B+' }
-      ];
-      var idx = 0, startTime = null, startVal = 0;
+   // ── VISIT COUNTER ──
+(function() {
+  var el = document.getElementById('visit-counter');
+  var stages = [
+    { target: 1000000000, duration: 5000 }, // Target is exactly 1 Billion
+    { target: null,       duration: 0, label: '1B+' }
+  ];
+  var idx = 0, startTime = null, startVal = 0;
 
-      function fmt(n) {
-        if (n >= 1000000000) return '1B+';
-        if (n >= 1000000)    return (n / 1000000).toFixed(2) + 'M';
-        if (n >= 1000)       return (n / 1000).toFixed(1) + 'K';
-        return Math.round(n).toString();
-      }
+  function fmt(n) {
+    // Switch to label early (at 999.5M) to avoid "1000M"
+    if (n >= 999500000) return '1B+'; 
+    
+    if (n >= 1000000)   return (n / 1000000).toFixed(2) + 'M';
+    if (n >= 1000)      return (n / 1000).toFixed(1) + 'K';
+    return Math.round(n).toString();
+  }
 
-      function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
 
-      function run(ts) {
-        if (idx >= stages.length) return;
-        var s = stages[idx];
-        if (s.label) { el.textContent = s.label; return; }
-        if (!startTime) startTime = ts;
-        var p = Math.min((ts - startTime) / s.duration, 1);
-        el.textContent = fmt(startVal + (s.target - startVal) * ease(p));
-        if (p < 1) {
-          requestAnimationFrame(run);
-        } else {
-          startVal = s.target; 
-          startTime = null; 
-          idx++;
-          if (idx < stages.length) {
-            requestAnimationFrame(run);
-          } else {
-            el.textContent = '1B+';
-          }
-        }
-      }
+  function run(ts) {
+    if (idx >= stages.length) return;
+    var s = stages[idx];
+    if (s.label) { el.textContent = s.label; return; }
+    if (!startTime) startTime = ts;
+    var p = Math.min((ts - startTime) / s.duration, 1);
+    
+    var currentVal = startVal + (s.target - startVal) * ease(p);
+    el.textContent = fmt(currentVal);
 
-      new IntersectionObserver(function(e, o) {
-        if (e[0].isIntersecting) { 
-          o.disconnect(); 
-          setTimeout(function(){ requestAnimationFrame(run); }, 300); 
-        }
-      }, { threshold: 0.5 }).observe(el);
-    })();
+    // If the formatter already returned '1B+', we can stop early
+    if (p < 1 && el.textContent !== '1B+') {
+      requestAnimationFrame(run);
+    } else {
+      el.textContent = '1B+'; // Force final label
+      startVal = s.target; startTime = null; idx++;
+      if (idx < stages.length) requestAnimationFrame(run);
+    }
+  }
+
+  new IntersectionObserver(function(e, o) {
+    if (e[0].isIntersecting) { 
+      o.disconnect(); 
+      setTimeout(function(){ requestAnimationFrame(run); }, 300); 
+    }
+  }, { threshold: 0.5 }).observe(el);
+})();
 
     // ── CAROUSELS ──
     function makeCarousel(trackId, prevId, nextId) {
