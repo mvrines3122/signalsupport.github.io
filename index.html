@@ -4,6 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shawn — @signalsupport</title>
+
+  <!-- ── TAB ICON ── -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d0d0f'/%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='0%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%237864ff' stop-opacity='0.4'/%3E%3Cstop offset='100%25' stop-color='%230d0d0f' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,SF Pro Display,sans-serif' font-size='18' font-weight='700' fill='white'%3ES%3C/text%3E%3C/svg%3E" />
+
+  <!-- ── OPEN GRAPH / DISCORD / SOCIAL PREVIEW ── -->
+  <meta property="og:type"         content="website" />
+  <meta property="og:url"          content="https://signalsupport.github.io/" />
+  <meta property="og:title"        content="Shawn — @signalsupport" />
+  <meta property="og:description"  content="Systems engineer & game developer. Former USMC Intelligence Specialist. Specializing in large-scale, performance-critical Roblox experiences. 1B+ contributed visits." />
+  <meta property="og:image"        content="https://signalsupport.github.io/preview.png" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Shawn — @signalsupport" />
+  <meta name="twitter:description" content="Systems engineer & game developer. Former USMC Intelligence Specialist. Specializing in large-scale, performance-critical Roblox experiences. 1B+ contributed visits." />
+  <meta name="twitter:image"       content="https://signalsupport.github.io/preview.png" />
+  <meta name="description"         content="Systems engineer & game developer. Former USMC Intelligence Specialist. Specializing in large-scale, performance-critical Roblox experiences. 1B+ contributed visits." />
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -13,6 +29,20 @@
       background: #0d0d0f;
       color: #fff;
       min-height: 100vh;
+    }
+
+    /* ── CANVAS ── */
+    #bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero, .bio-section, .section, .divider, footer, .modal-overlay {
+      position: relative;
+      z-index: 1;
     }
 
     /* ── HERO ── */
@@ -121,7 +151,6 @@
       font-weight: 400;
       letter-spacing: 0.04em;
       text-decoration: none;
-      cursor: pointer;
       transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s, color 0.2s;
     }
 
@@ -129,6 +158,87 @@
       transform: scale(1.08);
       background: rgba(255,255,255,0.09);
       color: rgba(255,255,255,0.85);
+    }
+
+    /* ── BIO ── */
+    .bio-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 32px 0;
+      text-align: center;
+    }
+
+    .bio-text {
+      font-size: 16px;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.55);
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(.22,1,.36,1) 0.2s forwards;
+    }
+
+    .bio-highlight {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+
+    .bio-name {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* ── STAT CARD ── */
+    .stat-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.5s forwards;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 24px 40px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+      cursor: default;
+    }
+
+    .stat-card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .stat-number {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .stat-accent {
+      display: inline-block;
+      background: rgba(120,100,255,0.15);
+      border: 0.5px solid rgba(120,100,255,0.3);
+      color: rgba(180,170,255,0.9);
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
     }
 
     /* ── SECTIONS ── */
@@ -276,9 +386,7 @@
       background: rgba(255,255,255,0.06);
     }
 
-    .game-card-info {
-      padding: 9px 10px 10px;
-    }
+    .game-card-info { padding: 9px 10px 10px; }
 
     .game-card-title {
       font-size: 12px;
@@ -316,7 +424,7 @@
 
     .carousel-arrow:hover { background: rgba(60,60,70,0.95); transform: translateY(-50%) scale(1.1); }
     .carousel-arrow.hidden { opacity: 0; pointer-events: none; }
-    .carousel-arrow.left { left: -14px; }
+    .carousel-arrow.left  { left:  -14px; }
     .carousel-arrow.right { right: -14px; }
 
     .carousel-label {
@@ -403,105 +511,31 @@
       color: rgba(255,255,255,0.2);
     }
 
-    /* ── BIO ── */
-    .bio-section {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 80px 32px 0;
-      text-align: center;
-    }
-
-    .bio-text {
-      font-size: 16px;
-      line-height: 1.85;
-      color: rgba(255,255,255,0.55);
-      opacity: 0;
-      animation: fadeUp 1s cubic-bezier(.22,1,.36,1) 0.2s forwards;
-    }
-
-    .bio-text .bio-highlight {
-      color: rgba(255,255,255,0.9);
-      font-weight: 500;
-    }
-
-    .bio-text .bio-name {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    /* ── STAT CARD ── */
-    .stat-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-      opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.5s forwards;
-    }
-
-    .stat-card {
-      background: rgba(255,255,255,0.05);
-      border: 0.5px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 24px 40px;
-      text-align: center;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
-      cursor: default;
-    }
-
-    .stat-card:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.09);
-    }
-
-    .stat-number {
-      font-size: 42px;
-      font-weight: 700;
-      letter-spacing: -1.5px;
-      color: #fff;
-      line-height: 1;
-      margin-bottom: 8px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-    }
-
-    .stat-accent {
-      display: inline-block;
-      background: rgba(120,100,255,0.15);
-      border: 0.5px solid rgba(120,100,255,0.3);
-      color: rgba(180,170,255,0.9);
-      font-size: 10px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.06em;
-      margin-bottom: 14px;
-    }
-
-    /* ── CANVAS BACKGROUND ── */
-    #bg-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .hero, .bio-section, .section, .divider, footer, .modal-overlay {
-      position: relative;
-      z-index: 1;
+    /* ── MOBILE ── */
+    @media (max-width: 767px) {
+      .hero { padding: 60px 20px 48px; }
+      .hero-name { letter-spacing: -1px; }
+      .nav-btns { gap: 10px; }
+      .nav-btn { padding: 10px 20px; font-size: 11px; }
+      .contact-btns { gap: 8px; }
+      .contact-btn { padding: 6px 13px; font-size: 11px; }
+      .bio-section { padding: 60px 20px 0; }
+      .bio-text { font-size: 15px; }
+      .stat-card { padding: 20px 28px; }
+      .stat-number { font-size: 34px; }
+      .section { padding: 60px 20px; }
+      .widget-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .proj-card { padding: 18px; }
+      .proj-title { font-size: 16px; }
+      .game-card { flex: 0 0 140px; }
+      .game-card-thumb { height: 88px; }
+      .carousel-arrow.left  { left:  -10px; }
+      .carousel-arrow.right { right: -10px; }
     }
   </style>
 </head>
 <body>
+
   <canvas id="bg-canvas"></canvas>
 
   <!-- HERO -->
@@ -545,7 +579,6 @@
       <span class="bio-highlight">high concurrency and long-term player retention</span>.<br><br>
       I love data structures and complex work.
     </p>
-
     <div class="stat-wrap">
       <div class="stat-card">
         <div class="stat-accent">Milestone</div>
@@ -555,7 +588,7 @@
     </div>
   </div>
 
-  <div style="height: 80px;"></div>
+  <div style="height: 80px; position: relative; z-index: 1;"></div>
 
   <div class="divider"></div>
 
@@ -563,47 +596,38 @@
   <section class="section" id="skills">
     <p class="section-label">Skills</p>
     <div class="widget-grid">
-
       <div class="widget">
         <div class="widget-cat">Languages</div>
         <div class="widget-skills">LuaU · Lua · C# · C++ · Python · SQL · JavaScript · HTML5 · CSS</div>
       </div>
-
       <div class="widget">
         <div class="widget-cat">Frameworks & DB</div>
         <div class="widget-skills">Node.js · React · mySQL</div>
       </div>
-
       <div class="widget">
         <div class="widget-cat">Creative Suite</div>
         <div class="widget-skills">Adobe Creative Cloud · DaVinci Resolve · Blender · Substance Painter · Clothing Design</div>
       </div>
-
       <div class="widget">
         <div class="widget-cat">Dev Tools</div>
         <div class="widget-skills">VS Code · PyCharm · Xcode · TeamViewer · FileZilla · Jira · Trello</div>
       </div>
-
       <div class="widget">
         <div class="widget-cat">Platforms</div>
         <div class="widget-skills">Windows 7–11 · macOS Sequoia & Tahoe · iOS · Android</div>
       </div>
-
       <div class="widget">
         <div class="widget-cat">Technical</div>
         <div class="widget-skills">Game Design · Level Design · Anti-Exploits · Data Structures · QA · Data Analysis · UI/UX</div>
       </div>
-
       <div class="widget">
         <div class="widget-cat">Leadership</div>
         <div class="widget-skills">Team Management · Internal Education · Project Management · Business Development · Coordination</div>
       </div>
-
       <div class="widget">
         <div class="widget-cat">Other</div>
         <div class="widget-skills">Marketing · Social Media · Community · Translation · Scripting · Administration</div>
       </div>
-
     </div>
   </section>
 
@@ -628,16 +652,14 @@
         <span class="tag">Performance Optimization</span>
         <span class="tag">Systems Architecture</span>
       </div>
-
       <div style="margin-top: 22px;">
         <div class="carousel-label">Experiences</div>
-        <div class="carousel-wrap" id="mps-carousel-wrap">
-          <button class="carousel-arrow left hidden" id="mps-prev" aria-label="Previous" onclick="scroll_mps_track(-1))">
+        <div class="carousel-wrap">
+          <button class="carousel-arrow left hidden" id="mps-prev" aria-label="Previous" onclick="scroll_mps_track(-1)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
           <div class="carousel-track-outer">
             <div class="carousel-track" id="mps-track">
-
               <a class="game-card" href="https://www.roblox.com/games/13436905139/MPS-4-a-side" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493166364922347651/MPS4aside.png?ex=69ddfb0b&is=69dca98b&hm=b41659f39202b61455c179fb06dc1e7a3e3d11b087ae74a296ca8631357262c9&=&format=webp&quality=lossless" alt="MPS 4-a-side" />
                 <div class="game-card-info">
@@ -645,7 +667,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.roblox.com/games/16625111026/MPS-League" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493166365207429201/MPSLeague.png?ex=69ddfb0b&is=69dca98b&hm=0fb1ffee79a1418faf08c9cd63ad6e68dc9c28154b0bcf9bf064a4caaa26d72c&=&format=webp&quality=lossless" alt="MPS League" />
                 <div class="game-card-info">
@@ -653,7 +674,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.roblox.com/games/88920112778598/Pure-Soccer" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493166366084169838/PureSoccer.png?ex=69ddfb0b&is=69dca98b&hm=68782fc005edac56fdb3741335c6c85bce7bba09ed8cb401392b4e21dabf7592&=&format=webp&quality=lossless" alt="Pure Soccer" />
                 <div class="game-card-info">
@@ -661,7 +681,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.roblox.com/games/10937521050/MPS-Legacy" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493166365761339432/MPSLegacy.png?ex=69ddfb0b&is=69dca98b&hm=d91e9b7d070eddb1695093d9e97bf487a0cf19b5f3ea5c79b538a8b9a9f36f01&=&format=webp&quality=lossless" alt="MPS Legacy" />
                 <div class="game-card-info">
@@ -669,7 +688,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.roblox.com/games/105092654453064/Soccer-Masters" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493166366377775156/SoccerMasters.png?ex=69ddfb0b&is=69dca98b&hm=cc92ae98d903b7ee05e4fc91182346607517783f963d22a6409b3c9f4740caa3&=&format=webp&quality=lossless" alt="Soccer Masters" />
                 <div class="game-card-info">
@@ -677,7 +695,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
             </div>
           </div>
           <button class="carousel-arrow right" id="mps-next" aria-label="Next" onclick="scroll_mps_track(1)">
@@ -687,12 +704,12 @@
       </div>
     </div>
 
-    <!-- FEATURED ROBLOX PROJECTS -->
+    <!-- FEATURED ROBLOX -->
     <div class="proj-card">
       <div class="proj-title">Featured Roblox Experiences</div>
       <div class="proj-role">Core Programmer — Multiple Studios</div>
       <div class="proj-desc">
-        Core programmer on numerous large-scale original concepts, including Asylum Life (evolved from Foxtrot Asylum and Southside Asylum), Quarantine & CDC, OOF Bridge CTE, Los Angeles Roleplay, and Ro-Bio. These projects were featured by major content creators including Flamingo, Elitelupus, and KreekCraft.
+        Core programmer on numerous large-scale original concepts including Asylum Life (evolved from Foxtrot Asylum and Southside Asylum), Quarantine & CDC, OOF Bridge CTE, Los Angeles Roleplay, and Ro-Bio. These projects were featured by major content creators including Flamingo, Elitelupus, and KreekCraft.
       </div>
       <div class="tags">
         <span class="tag">LuaU</span>
@@ -700,16 +717,14 @@
         <span class="tag">Scripting</span>
         <span class="tag">Game Design</span>
       </div>
-
       <div style="margin-top: 22px;">
         <div class="carousel-label">Experiences</div>
-        <div class="carousel-wrap" id="featured-carousel-wrap">
+        <div class="carousel-wrap">
           <button class="carousel-arrow left hidden" id="featured-prev" aria-label="Previous" onclick="scroll_featured_track(-1)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
           <div class="carousel-track-outer">
             <div class="carousel-track" id="featured-track">
-
               <a class="game-card" href="https://www.roblox.com/games/1295127057/SHELLSHOCK" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493169713054748853/noFilter.png?ex=69ddfe29&is=69dcaca9&hm=a945b9e2a242a425d750ed77f45068174f2f5a7192c5cc0e2b1730b31505213f&=&format=webp&quality=lossless" alt="Shellshock" />
                 <div class="game-card-info">
@@ -717,7 +732,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.roblox.com/games/596998147/HEDGEROWS-CLASSIC" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493169712753020948/noFilter.png?ex=69ddfe29&is=69dcaca9&hm=af2a5d6d7c7236023b8a9d092879796bae2b566e7f8403a9d2bfd3e67f47d903&=&format=webp&quality=lossless" alt="Hedgerows Classic" />
                 <div class="game-card-info">
@@ -725,7 +739,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.roblox.com/games/132352755769957/Asylum-Life#ropro-quick-search" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493169713419915284/noFilter.png?ex=69ddfe29&is=69dcaca9&hm=5865faade93f6b05f1c05e12e5e614ff33b33ee98b3bd1848710596f5cf3cd41&=&format=webp&quality=lossless" alt="Asylum Life" />
                 <div class="game-card-info">
@@ -733,7 +746,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.roblox.com/games/1524422222/A-Pirates-Tale-Alpha" target="_blank">
                 <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493170909790605352/noFilter.png?ex=69ddff46&is=69dcadc6&hm=3870ff824f8538a1733de013deb6a8e7c790f0c79b45149c9cad06d32c8d0b74&=&format=webp&quality=lossless" alt="A Pirate's Tale" />
                 <div class="game-card-info">
@@ -741,7 +753,6 @@
                   <div class="game-card-sub">roblox.com</div>
                 </div>
               </a>
-
             </div>
           </div>
           <button class="carousel-arrow right" id="featured-next" aria-label="Next" onclick="scroll_featured_track(1)">
@@ -765,16 +776,14 @@
         <span class="tag">Simulation</span>
         <span class="tag">LuaU</span>
       </div>
-
       <div style="margin-top: 22px;">
         <div class="carousel-label">Channels</div>
-        <div class="carousel-wrap" id="tf-carousel-wrap">
+        <div class="carousel-wrap">
           <button class="carousel-arrow left hidden" id="tf-prev" aria-label="Previous" onclick="scroll_tf_track(-1)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
           <div class="carousel-track-outer">
             <div class="carousel-track" id="tf-track">
-
               <a class="game-card" href="https://www.youtube.com/@taskforcewhitedevil8538" target="_blank">
                 <div class="game-card-thumb" style="display:flex;align-items:center;justify-content:center;background:rgba(255,0,0,0.08);">
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(255,60,60,0.6)"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -784,7 +793,6 @@
                   <div class="game-card-sub">youtube.com</div>
                 </div>
               </a>
-
               <a class="game-card" href="https://www.youtube.com/@tfblackdiamond" target="_blank">
                 <div class="game-card-thumb" style="display:flex;align-items:center;justify-content:center;background:rgba(255,0,0,0.08);">
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(255,60,60,0.6)"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -794,13 +802,32 @@
                   <div class="game-card-sub">youtube.com</div>
                 </div>
               </a>
-
             </div>
           </div>
           <button class="carousel-arrow right hidden" id="tf-next" aria-label="Next" onclick="scroll_tf_track(1)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         </div>
+      </div>
+    </div>
+
+    <!-- ARMA 3 -->
+    <div class="proj-card">
+      <div class="proj-title">Arma 3 Units</div>
+      <div class="proj-role">Lead Programmer · Lead Mod Engineer · Lead Map Maker</div>
+      <div class="proj-desc">
+        Led programming, modding, and map design efforts across Arma 3 unit operations. Developed in-depth modifications covering weapon systems, sound composition, and custom terrain. Designed and built maps using Eden Editor, managed mod engineering pipelines, and directed technical development across the unit's simulation and gameplay infrastructure.
+      </div>
+      <div class="tags">
+        <span class="tag">C++</span>
+        <span class="tag">C#</span>
+        <span class="tag">3D Modelling</span>
+        <span class="tag">In-Depth Modding</span>
+        <span class="tag">Sound Composing</span>
+        <span class="tag">Map Design</span>
+        <span class="tag">Game Design</span>
+        <span class="tag">Level Design</span>
+        <span class="tag">Eden Editor</span>
       </div>
     </div>
 
@@ -827,190 +854,141 @@
   </div>
 
   <script>
-    // ── VISIT COUNTER ANIMATION ──
+    // ── VISIT COUNTER ──
     (function() {
       var el = document.getElementById('visit-counter');
       var stages = [
-        { target: 1000,         duration: 400,  label: null },
-        { target: 99000,        duration: 500,  label: null },
-        { target: 1000000000,   duration: 700,  label: null },
-        { target: 1000000000,   duration: 0,    label: '1B+' }
+        { target: 1000000000, duration: 2500 },
+        { target: null,       duration: 0, label: '1B+' }
       ];
-      var stageIndex = 0;
-      var startTime = null;
-      var startVal = 0;
+      var idx = 0, startTime = null, startVal = 0;
 
-      function formatNum(n) {
+      function fmt(n) {
         if (n >= 1000000000) return '1B+';
         if (n >= 1000000)    return (n / 1000000).toFixed(1) + 'M';
         if (n >= 1000)       return Math.round(n / 1000) + 'K';
         return Math.round(n).toString();
       }
 
-      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+      function ease(t) { return 1 - Math.pow(1 - t, 3); }
 
-      function runStage(ts) {
-        if (stageIndex >= stages.length) return;
-        var stage = stages[stageIndex];
-        if (stage.label) { el.textContent = stage.label; return; }
+      function run(ts) {
+        if (idx >= stages.length) return;
+        var s = stages[idx];
+        if (s.label) { el.textContent = s.label; return; }
         if (!startTime) startTime = ts;
-        var elapsed = ts - startTime;
-        var progress = Math.min(elapsed / stage.duration, 1);
-        var val = startVal + (stage.target - startVal) * easeOut(progress);
-        el.textContent = formatNum(val);
-        if (progress < 1) {
-          requestAnimationFrame(runStage);
+        var p = Math.min((ts - startTime) / s.duration, 1);
+        el.textContent = fmt(startVal + (s.target - startVal) * ease(p));
+        if (p < 1) {
+          requestAnimationFrame(run);
         } else {
-          startVal = stage.target;
-          startTime = null;
-          stageIndex++;
-          if (stageIndex < stages.length) {
-            setTimeout(function() { requestAnimationFrame(runStage); }, 120);
-          } else {
-            el.textContent = '1B+';
-          }
+          startVal = s.target; startTime = null; idx++;
+          if (idx < stages.length) setTimeout(function(){ requestAnimationFrame(run); }, 120);
+          else el.textContent = '1B+';
         }
       }
 
-      var observer = new IntersectionObserver(function(entries) {
-        if (entries[0].isIntersecting) {
-          observer.disconnect();
-          setTimeout(function() { requestAnimationFrame(runStage); }, 300);
-        }
-      }, { threshold: 0.5 });
-
-      observer.observe(el);
+      new IntersectionObserver(function(e, o) {
+        if (e[0].isIntersecting) { o.disconnect(); setTimeout(function(){ requestAnimationFrame(run); }, 300); }
+      }, { threshold: 0.5 }).observe(el);
     })();
-    
+
+    // ── CAROUSELS ──
     function makeCarousel(trackId, prevId, nextId) {
       var track = document.getElementById(trackId);
       var prev  = document.getElementById(prevId);
       var next  = document.getElementById(nextId);
-      var step  = 172;
       var pos   = 0;
 
-      function maxPos() {
-        return Math.max(0, track.scrollWidth - track.parentElement.offsetWidth);
-      }
-
+      function max() { return Math.max(0, track.scrollWidth - track.parentElement.offsetWidth); }
       function update() {
         track.style.transform = 'translateX(-' + pos + 'px)';
         prev.classList.toggle('hidden', pos <= 0);
-        next.classList.toggle('hidden', pos >= maxPos());
+        next.classList.toggle('hidden', pos >= max());
       }
-
-      window['scroll_' + trackId] = function(dir) {
-        pos = Math.min(Math.max(pos + dir * step, 0), maxPos());
+      window['scroll_' + trackId] = function(d) {
+        pos = Math.min(Math.max(pos + d * 172, 0), max());
         update();
       };
-
       window.addEventListener('resize', update);
       update();
     }
-    // ── PARTICLE NETWORK BACKGROUND ──
-    (function() {
-      var canvas = document.getElementById('bg-canvas');
-      var ctx = canvas.getContext('2d');
-      var nodes = [];
-      var count = 60;
-      var maxDist = 160;
-      var sideWidth = 260;
-
-      function resize() {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-
-      function spawnNode() {
-        var side = Math.random() < 0.5 ? 'left' : 'right';
-        var x = side === 'left'
-          ? Math.random() * sideWidth
-          : window.innerWidth - Math.random() * sideWidth;
-        return {
-          x: x,
-          y: Math.random() * window.innerHeight,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-          r: Math.random() * 1.5 + 1
-        };
-      }
-
-      function init() {
-        nodes = [];
-        for (var i = 0; i < count; i++) nodes.push(spawnNode());
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (var i = 0; i < nodes.length; i++) {
-          var a = nodes[i];
-          for (var j = i + 1; j < nodes.length; j++) {
-            var b = nodes[j];
-            var dx = a.x - b.x;
-            var dy = a.y - b.y;
-            var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < maxDist) {
-              var alpha = (1 - dist / maxDist) * 0.18;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.strokeStyle = 'rgba(160,150,255,' + alpha + ')';
-              ctx.lineWidth = 0.8;
-              ctx.stroke();
-            }
-          }
-        }
-
-        for (var i = 0; i < nodes.length; i++) {
-          var n = nodes[i];
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(180,170,255,0.35)';
-          ctx.fill();
-        }
-      }
-
-      function update() {
-        for (var i = 0; i < nodes.length; i++) {
-          var n = nodes[i];
-          n.x += n.vx;
-          n.y += n.vy;
-
-          var inLeft  = n.x < sideWidth;
-          var inRight = n.x > window.innerWidth - sideWidth;
-
-          if (!inLeft && !inRight) {
-            if (n.x < sideWidth + 10)       n.vx = Math.abs(n.vx);
-            else if (n.x > window.innerWidth - sideWidth - 10) n.vx = -Math.abs(n.vx);
-          }
-
-          if (n.x < 0)                    { n.x = 0;                    n.vx = Math.abs(n.vx); }
-          if (n.x > window.innerWidth)    { n.x = window.innerWidth;    n.vx = -Math.abs(n.vx); }
-          if (n.y < 0)                    { n.y = 0;                    n.vy = Math.abs(n.vy); }
-          if (n.y > window.innerHeight)   { n.y = window.innerHeight;   n.vy = -Math.abs(n.vy); }
-        }
-      }
-
-      function loop() {
-        update();
-        draw();
-        requestAnimationFrame(loop);
-      }
-
-      window.addEventListener('resize', function() {
-        resize();
-        init();
-      });
-
-      resize();
-      init();
-      loop();
-    })();
 
     makeCarousel('mps-track',      'mps-prev',      'mps-next');
     makeCarousel('featured-track', 'featured-prev', 'featured-next');
     makeCarousel('tf-track',       'tf-prev',       'tf-next');
+
+    // ── PARTICLE NETWORK ──
+    (function() {
+      var canvas = document.getElementById('bg-canvas');
+      var ctx    = canvas.getContext('2d');
+      var nodes  = [];
+      var maxD   = 140;
+
+      function mob()   { return window.innerWidth < 768; }
+      function count() { return mob() ? 35 : 60; }
+
+      function spawn() {
+        var x;
+        if (mob()) {
+          x = Math.random() * window.innerWidth;
+        } else {
+          var left = Math.random() < 0.5;
+          x = left ? Math.random() * 260 : window.innerWidth - Math.random() * 260;
+        }
+        return { x: x, y: Math.random() * window.innerHeight,
+                 vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+                 r: Math.random() * 1.2 + 0.8 };
+      }
+
+      function init() { nodes = []; for (var i = 0; i < count(); i++) nodes.push(spawn()); }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var m = mob();
+        for (var i = 0; i < nodes.length; i++) {
+          var a = nodes[i];
+          for (var j = i + 1; j < nodes.length; j++) {
+            var b = nodes[j], dx = a.x - b.x, dy = a.y - b.y;
+            var dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < maxD) {
+              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = 'rgba(160,150,255,' + (1 - dist/maxD) * (m ? 0.12 : 0.18) + ')';
+              ctx.lineWidth = 0.7; ctx.stroke();
+            }
+          }
+        }
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+          ctx.fillStyle = 'rgba(180,170,255,' + (m ? 0.2 : 0.35) + ')'; ctx.fill();
+        }
+      }
+
+      function update() {
+        var m = mob(), sw = 260, w = window.innerWidth, h = window.innerHeight;
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          n.x += n.vx; n.y += n.vy;
+          if (!m) {
+            if (n.x >= sw && n.x <= w - sw) {
+              if (n.x < sw + 8)     n.vx =  Math.abs(n.vx);
+              if (n.x > w - sw - 8) n.vx = -Math.abs(n.vx);
+            }
+          }
+          if (n.x < 0) { n.x = 0; n.vx =  Math.abs(n.vx); }
+          if (n.x > w) { n.x = w; n.vx = -Math.abs(n.vx); }
+          if (n.y < 0) { n.y = 0; n.vy =  Math.abs(n.vy); }
+          if (n.y > h) { n.y = h; n.vy = -Math.abs(n.vy); }
+        }
+      }
+
+      function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; init(); }
+      window.addEventListener('resize', resize);
+      resize(); loop();
+    })();
   </script>
 
 </body>
