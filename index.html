@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shawn — @signalsupport</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      background: #0d0d0f;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 48px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(120,100,255,0.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+    }
+
+    .hero-name {
+      font-size: clamp(52px, 10vw, 96px);
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 1s cubic-bezier(.22,1,.36,1) 0.3s forwards;
+    }
+
+    .hero-handle {
+      font-size: 15px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.75s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── NAV BUTTONS ── */
+    .nav-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 1.1s forwards;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.85);
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.08);
+      background: rgba(255,255,255,0.13);
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 32px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 28px;
+    }
+
+    .divider {
+      height: 0.5px;
+      background: rgba(255,255,255,0.07);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ── SKILLS WIDGETS ── */
+    .widget-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .widget {
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 18px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+    }
+
+    .widget:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .widget-cat {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 8px;
+    }
+
+    .widget-skills {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.75;
+    }
+
+    /* ── PORTFOLIO CARDS ── */
+    .proj-card {
+      background: rgba(255,255,255,0.04);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 14px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+    }
+
+    .proj-card:hover {
+      transform: scale(1.02);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .proj-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .proj-role {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 12px;
+    }
+
+    .proj-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      background: rgba(120,100,255,0.15);
+      border: 0.5px solid rgba(120,100,255,0.3);
+      color: rgba(180,170,255,0.9);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── RESUME MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal-box {
+      background: rgba(22,22,28,0.98);
+      border: 0.5px solid rgba(255,255,255,0.15);
+      border-radius: 22px;
+      padding: 36px 32px 28px;
+      max-width: 320px;
+      width: 90%;
+      text-align: center;
+      backdrop-filter: blur(24px);
+      animation: fadeUp 0.35s cubic-bezier(.22,1,.36,1);
+    }
+
+    .modal-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(255,175,0,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .modal-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .modal-body {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .modal-ok {
+      background: rgba(255,255,255,0.1);
+      border: 0.5px solid rgba(255,255,255,0.2);
+      color: #fff;
+      padding: 11px 44px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .modal-ok:hover {
+      background: rgba(255,255,255,0.18);
+      transform: scale(1.05);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-tag">Portfolio</p>
+    <h1 class="hero-name">Shawn</h1>
+    <p class="hero-handle">@signalsupport</p>
+    <div class="nav-btns">
+      <button class="nav-btn" onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'})">SKILLS</button>
+      <button class="nav-btn" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">PORTFOLIO</button>
+      <button class="nav-btn" onclick="document.getElementById('resume-modal').classList.add('show')">RESUME / CV</button>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <p class="section-label">Skills</p>
+    <div class="widget-grid">
+
+      <div class="widget">
+        <div class="widget-cat">Languages</div>
+        <div class="widget-skills">LuaU · Lua · C# · C++ · Python · SQL · JavaScript · HTML5 · CSS</div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-cat">Frameworks & DB</div>
+        <div class="widget-skills">Node.js · React · mySQL</div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-cat">Creative Suite</div>
+        <div class="widget-skills">Adobe Creative Cloud · DaVinci Resolve · Blender · Substance Painter · Clothing Design</div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-cat">Dev Tools</div>
+        <div class="widget-skills">VS Code · PyCharm · Xcode · TeamViewer · FileZilla · Jira · Trello</div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-cat">Platforms</div>
+        <div class="widget-skills">Windows 7–11 · macOS Sequoia & Tahoe · iOS · Android</div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-cat">Technical</div>
+        <div class="widget-skills">Game Design · Level Design · Anti-Exploits · Data Structures · QA · Data Analysis · UI/UX</div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-cat">Leadership</div>
+        <div class="widget-skills">Team Management · Internal Education · Project Management · Business Development · Coordination</div>
+      </div>
+
+      <div class="widget">
+        <div class="widget-cat">Other</div>
+        <div class="widget-skills">Marketing · Social Media · Community · Translation · UX · Scripting · Administration</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PORTFOLIO -->
+  <section class="section" id="portfolio">
+    <p class="section-label">Portfolio</p>
+
+    <div class="proj-card">
+      <div class="proj-title">MPS Studios</div>
+      <div class="proj-role">Lead Developer & Co-Founder</div>
+      <div class="proj-desc">
+        Built high-quality user interfaces, core gameplay mechanics, and original audio compositions for MPS Studios and its Roblox experiences. Led engine deprecation resolution, legacy system refactoring, and performance optimization. Architected scalable frameworks for live-service updates and maintained stability in high-concurrency environments. Contributed to product vision, pipeline design, and long-term technology maintainability as co-founder.
+      </div>
+      <div class="tags">
+        <span class="tag">LuaU</span>
+        <span class="tag">UI/UX</span>
+        <span class="tag">Live-Service</span>
+        <span class="tag">Audio Composition</span>
+        <span class="tag">Performance Optimization</span>
+        <span class="tag">Systems Architecture</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-title">Featured Roblox Experiences</div>
+      <div class="proj-role">Core Programmer — Multiple Studios</div>
+      <div class="proj-desc">
+        Core programmer on numerous large-scale original concepts including Asylum Roleplay (Foxtrot Asylum, Southside Asylum), Quarantine & CDC, OOF Bridge CTE, Los Angeles Roleplay, and Ro-Bio. These projects were featured by major content creators including Flamingo, Elitelupus, and KreekCraft.
+      </div>
+      <div class="tags">
+        <span class="tag">LuaU</span>
+        <span class="tag">Roleplay Systems</span>
+        <span class="tag">Scripting</span>
+        <span class="tag">Game Design</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-title">Task Force White Devil / Black Diamond</div>
+      <div class="proj-role">Anti-Exploit & Avionics Engineer</div>
+      <div class="proj-desc">
+        Developed proprietary frameworks for weapon systems and simulation technology for Task Force White Devil (owned by peq15/MattCReginald) and its successor Task Force Black Diamond — one of the leading military units on the Roblox platform. Built advanced anti-exploit systems and avionics frameworks. Also contributed to GUSM, a large-scale ro-nation project.
+      </div>
+      <div class="tags">
+        <span class="tag">Anti-Exploits</span>
+        <span class="tag">Avionics</span>
+        <span class="tag">Weapon Systems</span>
+        <span class="tag">Simulation</span>
+        <span class="tag">LuaU</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Shawn · @signalsupport</p>
+  </footer>
+
+  <!-- RESUME MODAL -->
+  <div id="resume-modal" class="modal-overlay" onclick="if(event.target===this)this.classList.remove('show')">
+    <div class="modal-box">
+      <div class="modal-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,175,0,0.85)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <div class="modal-title">Private Document</div>
+      <div class="modal-body">Unfortunately, this is private and can only be obtained in relevant matters.</div>
+      <button class="modal-ok" onclick="document.getElementById('resume-modal').classList.remove('show')">OK</button>
+    </div>
+  </div>
+
+</body>
+</html>
