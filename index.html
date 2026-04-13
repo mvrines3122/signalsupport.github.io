@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shawn — @signalsupport</title>
 
-  <!-- ── TAB ICON ── -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d0d0f'/%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='0%25' r='80%25'%3E%3Cstop offset='0%25' stop-color='%237864ff' stop-opacity='0.4'/%3E%3Cstop offset='100%25' stop-color='%230d0d0f' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='-apple-system,BlinkMacSystemFont,SF Pro Display,sans-serif' font-size='18' font-weight='700' fill='white'%3ES%3C/text%3E%3C/svg%3E" />
 
-  <!-- ── OPEN GRAPH / DISCORD / SOCIAL PREVIEW ── -->
   <meta property="og:type"         content="website" />
-  <meta property="og:url"          content="https://signalsupport.github.io/" />
+  <meta property="og:url"          content="https://mvrines3122.github.io/signalsupport.github.io/" />
   <meta property="og:title"        content="Shawn — @signalsupport" />
   <meta property="og:description"  content="Systems engineer & game developer. Former USMC Intelligence Specialist. Specializing in large-scale, performance-critical Roblox experiences. 1B+ contributed visits." />
-  <meta property="og:image"        content="https://github.com/mvrines3122/signalsupport.github.io/blob/buffer-fix.branch/Preview.png?raw=true" />
+  <meta property="og:image"        content="https://raw.githubusercontent.com/mvrines3122/signalsupport.github.io/buffer-fix.branch/Preview.png" />
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Shawn — @signalsupport" />
   <meta name="twitter:description" content="Systems engineer & game developer. Former USMC Intelligence Specialist. Specializing in large-scale, performance-critical Roblox experiences. 1B+ contributed visits." />
-  <meta name="twitter:image"       content="https://github.com/mvrines3122/signalsupport.github.io/blob/buffer-fix.branch/Preview.png?raw=true" />
+  <meta name="twitter:image"       content="https://raw.githubusercontent.com/mvrines3122/signalsupport.github.io/buffer-fix.branch/Preview.png" />
   <meta name="description"         content="Systems engineer & game developer. Former USMC Intelligence Specialist. Specializing in large-scale, performance-critical Roblox experiences. 1B+ contributed visits." />
 
   <style>
@@ -31,7 +29,6 @@
       min-height: 100vh;
     }
 
-    /* ── CANVAS ── */
     #bg-canvas {
       position: fixed;
       top: 0; left: 0;
@@ -45,7 +42,6 @@
       z-index: 1;
     }
 
-    /* ── HERO ── */
     .hero {
       display: flex;
       flex-direction: column;
@@ -99,7 +95,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── NAV BUTTONS ── */
     .nav-btns {
       display: flex;
       gap: 14px;
@@ -127,7 +122,6 @@
       background: rgba(255,255,255,0.13);
     }
 
-    /* ── CONTACT BUTTONS ── */
     .contact-btns {
       display: flex;
       gap: 10px;
@@ -167,7 +161,6 @@
       margin: 0 auto;
     }
 
-    /* ── BIO ── */
     .bio-section {
       max-width: 720px;
       margin: 0 auto;
@@ -193,7 +186,6 @@
       font-weight: 600;
     }
 
-    /* ── STAT CARD ── */
     .stat-wrap {
       display: flex;
       justify-content: center;
@@ -248,7 +240,6 @@
       margin-bottom: 14px;
     }
 
-    /* ── SECTIONS ── */
     .section {
       max-width: 960px;
       margin: 0 auto;
@@ -263,14 +254,6 @@
       margin-bottom: 28px;
     }
 
-    .divider {
-      height: 0.5px;
-      background: rgba(255,255,255,0.07);
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    /* ── SKILLS WIDGETS ── */
     .widget-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -306,7 +289,6 @@
       line-height: 1.75;
     }
 
-    /* ── PORTFOLIO CARDS ── */
     .proj-card {
       background: rgba(255,255,255,0.04);
       border: 0.5px solid rgba(255,255,255,0.1);
@@ -355,7 +337,6 @@
       letter-spacing: 0.04em;
     }
 
-    /* ── CAROUSEL ── */
     .carousel-wrap {
       position: relative;
       margin-top: 18px;
@@ -442,7 +423,6 @@
       margin-bottom: 12px;
     }
 
-    /* ── RESUME MODAL ── */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -510,7 +490,6 @@
       transform: scale(1.05);
     }
 
-    /* ── FOOTER ── */
     footer {
       text-align: center;
       padding: 48px 24px;
@@ -518,7 +497,6 @@
       color: rgba(255,255,255,0.2);
     }
 
-    /* ── MOBILE ── */
     @media (max-width: 767px) {
       .hero { padding: 60px 20px 48px; }
       .hero-name { letter-spacing: -1px; }
@@ -568,7 +546,7 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
         DevForum
       </a>
-      <a class="contact-btn" href="/cdn-cgi/l/email-protection#f1829990869f9c889f98939390b1969c90989ddf929e9c">
+      <a class="contact-btn" href="mailto:shawnmynibba@gmail.com">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
         Email
       </a>
@@ -599,7 +577,6 @@
   </div>
 
   <div style="height: 80px; position: relative; z-index: 1;"></div>
-
   <div class="divider"></div>
 
   <!-- SKILLS -->
@@ -845,7 +822,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2025 Shawn · @signalsupport</p>
+    <p>&copy; 2025 Shawn &middot; @signalsupport</p>
   </footer>
 
   <!-- RESUME MODAL -->
@@ -863,49 +840,49 @@
     </div>
   </div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-   // ── VISIT COUNTER ──
-(function() {
-  var el = document.getElementById('visit-counter');
-  var stages = [
-    { target: 1000000000, duration: 5000 },
-    { target: null,       duration: 0, label: '1B+' }
-  ];
-  var idx = 0, startTime = null, startVal = 0;
+  <script>
+    // ── VISIT COUNTER ──
+    (function() {
+      var el = document.getElementById('visit-counter');
+      var stages = [
+        { target: 1000000000, duration: 5000 },
+        { target: null, duration: 0, label: '1B+' }
+      ];
+      var idx = 0, startTime = null, startVal = 0;
 
-  function fmt(n) {
-    if (n >= 999500000) return '1B+'; 
-    if (n >= 1000000)   return (n / 1000000).toFixed(2) + 'M';
-    if (n >= 1000)      return (n / 1000).toFixed(1) + 'K';
-    return Math.round(n).toString();
-  }
+      function fmt(n) {
+        if (n >= 999500000) return '1B+';
+        if (n >= 1000000)   return (n / 1000000).toFixed(2) + 'M';
+        if (n >= 1000)      return (n / 1000).toFixed(1) + 'K';
+        return Math.round(n).toString();
+      }
 
-  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+      function ease(t) { return 1 - Math.pow(1 - t, 3); }
 
-  function run(ts) {
-    if (idx >= stages.length) return;
-    var s = stages[idx];
-    if (s.label) { el.textContent = s.label; return; }
-    if (!startTime) startTime = ts;
-    var p = Math.min((ts - startTime) / s.duration, 1);
-    var currentVal = startVal + (s.target - startVal) * ease(p);
-    el.textContent = fmt(currentVal);
-    if (p < 1 && el.textContent !== '1B+') {
-      requestAnimationFrame(run);
-    } else {
-      el.textContent = '1B+';
-      startVal = s.target; startTime = null; idx++;
-      if (idx < stages.length) requestAnimationFrame(run);
-    }
-  }
+      function run(ts) {
+        if (idx >= stages.length) return;
+        var s = stages[idx];
+        if (s.label) { el.textContent = s.label; return; }
+        if (!startTime) startTime = ts;
+        var p = Math.min((ts - startTime) / s.duration, 1);
+        var currentVal = startVal + (s.target - startVal) * ease(p);
+        el.textContent = fmt(currentVal);
+        if (p < 1 && el.textContent !== '1B+') {
+          requestAnimationFrame(run);
+        } else {
+          el.textContent = '1B+';
+          startVal = s.target; startTime = null; idx++;
+          if (idx < stages.length) requestAnimationFrame(run);
+        }
+      }
 
-  new IntersectionObserver(function(e, o) {
-    if (e[0].isIntersecting) { 
-      o.disconnect(); 
-      setTimeout(function(){ requestAnimationFrame(run); }, 300); 
-    }
-  }, { threshold: 0.5 }).observe(el);
-})();
+      new IntersectionObserver(function(e, o) {
+        if (e[0].isIntersecting) {
+          o.disconnect();
+          setTimeout(function() { requestAnimationFrame(run); }, 300);
+        }
+      }, { threshold: 0.5 }).observe(el);
+    })();
 
     // ── CAROUSELS ──
     function makeCarousel(trackId, prevId, nextId) {
@@ -956,9 +933,11 @@
           var left = Math.random() < 0.5;
           x = left ? Math.random() * 260 : window.innerWidth - Math.random() * 260;
         }
-        return { x: x, y: Math.random() * window.innerHeight,
-                 vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-                 r: Math.random() * 1.2 + 0.8 };
+        return {
+          x: x, y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+          r: Math.random() * 1.2 + 0.8
+        };
       }
 
       function init() { nodes = []; for (var i = 0; i < count(); i++) nodes.push(spawn()); }
@@ -970,17 +949,17 @@
           var a = nodes[i];
           for (var j = i + 1; j < nodes.length; j++) {
             var b = nodes[j], dx = a.x - b.x, dy = a.y - b.y;
-            var dist = Math.sqrt(dx*dx + dy*dy);
+            var dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < maxD) {
               ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-              ctx.strokeStyle = 'rgba(160,150,255,' + (1 - dist/maxD) * (m ? 0.12 : 0.18) + ')';
+              ctx.strokeStyle = 'rgba(160,150,255,' + (1 - dist / maxD) * (m ? 0.12 : 0.18) + ')';
               ctx.lineWidth = 0.7; ctx.stroke();
             }
           }
         }
         for (var i = 0; i < nodes.length; i++) {
           var n = nodes[i];
-          ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+          ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
           ctx.fillStyle = 'rgba(180,170,255,' + (m ? 0.2 : 0.35) + ')'; ctx.fill();
         }
       }
@@ -1005,4 +984,12 @@
 
       function loop() { update(); draw(); requestAnimationFrame(loop); }
 
-      function resize() { canvas.width = window.innerWidth; canva
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; init(); }
+      window.addEventListener('resize', resize);
+      resize();
+      loop();
+    })();
+  </script>
+
+</body>
+</html>
