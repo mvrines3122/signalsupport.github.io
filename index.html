@@ -511,7 +511,7 @@
       <div style="margin-top: 22px;">
         <div class="carousel-label">Experiences</div>
         <div class="carousel-wrap" id="mps-carousel-wrap">
-          <button class="carousel-arrow left hidden" id="mps-prev" aria-label="Previous" onclick="mpsScroll(-1)">
+          <button class="carousel-arrow left hidden" id="mps-prev" aria-label="Previous" onclick="scroll_mps_track(-1))">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
           <div class="carousel-track-outer">
@@ -559,7 +559,7 @@
 
             </div>
           </div>
-          <button class="carousel-arrow right" id="mps-next" aria-label="Next" onclick="mpsScroll(1)">
+          <button class="carousel-arrow right" id="mps-next" aria-label="Next" onclick="scroll_mps_track(1)">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         </div>
@@ -571,13 +571,62 @@
       <div class="proj-title">Featured Roblox Experiences</div>
       <div class="proj-role">Core Programmer — Multiple Studios</div>
       <div class="proj-desc">
-        Core programmer on numerous large-scale original concepts, including Asylum Roleplay (Foxtrot Asylum, Southside Asylum), Quarantine & CDC, OOF Bridge CTE, Shellshock, Hedgerows Classic, Los Angeles Roleplay, and Ro-Bio. These projects were featured by major content creators, including Flamingo, Elitelupus, and KreekCraft.
+        Core programmer on numerous large-scale original concepts, including Asylum Life (evolved from Foxtrot Asylum and Southside Asylum), Quarantine & CDC, OOF Bridge CTE, Los Angeles Roleplay, and Ro-Bio. These projects were featured by major content creators including Flamingo, Elitelupus, and KreekCraft.
       </div>
       <div class="tags">
         <span class="tag">LuaU</span>
         <span class="tag">Roleplay Systems</span>
         <span class="tag">Scripting</span>
         <span class="tag">Game Design</span>
+      </div>
+
+      <div style="margin-top: 22px;">
+        <div class="carousel-label">Experiences</div>
+        <div class="carousel-wrap" id="featured-carousel-wrap">
+          <button class="carousel-arrow left hidden" id="featured-prev" aria-label="Previous" onclick="scroll_featured_track(-1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="carousel-track-outer">
+            <div class="carousel-track" id="featured-track">
+
+              <a class="game-card" href="https://www.roblox.com/games/1295127057/SHELLSHOCK" target="_blank">
+                <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493169713054748853/noFilter.png?ex=69ddfe29&is=69dcaca9&hm=a945b9e2a242a425d750ed77f45068174f2f5a7192c5cc0e2b1730b31505213f&=&format=webp&quality=lossless" alt="Shellshock" />
+                <div class="game-card-info">
+                  <div class="game-card-title">Shellshock</div>
+                  <div class="game-card-sub">roblox.com</div>
+                </div>
+              </a>
+
+              <a class="game-card" href="https://www.roblox.com/games/596998147/HEDGEROWS-CLASSIC" target="_blank">
+                <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493169712753020948/noFilter.png?ex=69ddfe29&is=69dcaca9&hm=af2a5d6d7c7236023b8a9d092879796bae2b566e7f8403a9d2bfd3e67f47d903&=&format=webp&quality=lossless" alt="Hedgerows Classic" />
+                <div class="game-card-info">
+                  <div class="game-card-title">Hedgerows Classic</div>
+                  <div class="game-card-sub">roblox.com</div>
+                </div>
+              </a>
+
+              <a class="game-card" href="https://www.roblox.com/games/132352755769957/Asylum-Life#ropro-quick-search" target="_blank">
+                <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493169713419915284/noFilter.png?ex=69ddfe29&is=69dcaca9&hm=5865faade93f6b05f1c05e12e5e614ff33b33ee98b3bd1848710596f5cf3cd41&=&format=webp&quality=lossless" alt="Asylum Life" />
+                <div class="game-card-info">
+                  <div class="game-card-title">Asylum Life</div>
+                  <div class="game-card-sub">roblox.com</div>
+                </div>
+              </a>
+
+              <a class="game-card" href="https://www.roblox.com/games/1524422222/A-Pirates-Tale-Alpha" target="_blank">
+                <img class="game-card-thumb" src="https://media.discordapp.net/attachments/685902511462547462/1493170909790605352/noFilter.png?ex=69ddff46&is=69dcadc6&hm=3870ff824f8538a1733de013deb6a8e7c790f0c79b45149c9cad06d32c8d0b74&=&format=webp&quality=lossless" alt="A Pirate's Tale" />
+                <div class="game-card-info">
+                  <div class="game-card-title">A Pirate's Tale</div>
+                  <div class="game-card-sub">roblox.com</div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+          <button class="carousel-arrow right" id="featured-next" aria-label="Next" onclick="scroll_featured_track(1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -594,6 +643,43 @@
         <span class="tag">Weapon Systems</span>
         <span class="tag">Simulation</span>
         <span class="tag">LuaU</span>
+      </div>
+
+      <div style="margin-top: 22px;">
+        <div class="carousel-label">Channels</div>
+        <div class="carousel-wrap" id="tf-carousel-wrap">
+          <button class="carousel-arrow left hidden" id="tf-prev" aria-label="Previous" onclick="scroll_tf_track(-1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="carousel-track-outer">
+            <div class="carousel-track" id="tf-track">
+
+              <a class="game-card" href="https://www.youtube.com/@taskforcewhitedevil8538" target="_blank">
+                <div class="game-card-thumb" style="display:flex;align-items:center;justify-content:center;background:rgba(255,0,0,0.08);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(255,60,60,0.6)"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </div>
+                <div class="game-card-info">
+                  <div class="game-card-title">TF White Devil</div>
+                  <div class="game-card-sub">youtube.com</div>
+                </div>
+              </a>
+
+              <a class="game-card" href="https://www.youtube.com/@tfblackdiamond" target="_blank">
+                <div class="game-card-thumb" style="display:flex;align-items:center;justify-content:center;background:rgba(255,0,0,0.08);">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(255,60,60,0.6)"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </div>
+                <div class="game-card-info">
+                  <div class="game-card-title">TF Black Diamond</div>
+                  <div class="game-card-sub">youtube.com</div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+          <button class="carousel-arrow right hidden" id="tf-next" aria-label="Next" onclick="scroll_tf_track(1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -620,17 +706,15 @@
   </div>
 
   <script>
-    (function() {
-      var track = document.getElementById('mps-track');
-      var prev  = document.getElementById('mps-prev');
-      var next  = document.getElementById('mps-next');
+    function makeCarousel(trackId, prevId, nextId) {
+      var track = document.getElementById(trackId);
+      var prev  = document.getElementById(prevId);
+      var next  = document.getElementById(nextId);
       var step  = 172;
       var pos   = 0;
 
       function maxPos() {
-        var outer = track.parentElement.offsetWidth;
-        var total = track.scrollWidth;
-        return Math.max(0, total - outer);
+        return Math.max(0, track.scrollWidth - track.parentElement.offsetWidth);
       }
 
       function update() {
@@ -639,14 +723,18 @@
         next.classList.toggle('hidden', pos >= maxPos());
       }
 
-      window.mpsScroll = function(dir) {
+      window['scroll_' + trackId] = function(dir) {
         pos = Math.min(Math.max(pos + dir * step, 0), maxPos());
         update();
       };
 
       window.addEventListener('resize', update);
       update();
-    })();
+    }
+
+    makeCarousel('mps-track',      'mps-prev',      'mps-next');
+    makeCarousel('featured-track', 'featured-prev', 'featured-next');
+    makeCarousel('tf-track',       'tf-prev',       'tf-next');
   </script>
 
 </body>
