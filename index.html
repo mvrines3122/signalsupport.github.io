@@ -402,6 +402,87 @@
       font-size: 12px;
       color: rgba(255,255,255,0.2);
     }
+
+    /* ── BIO ── */
+    .bio-section {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 32px 0;
+      text-align: center;
+    }
+
+    .bio-text {
+      font-size: 16px;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.55);
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(.22,1,.36,1) 0.2s forwards;
+    }
+
+    .bio-text .bio-highlight {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+
+    .bio-text .bio-name {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* ── STAT CARD ── */
+    .stat-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) 0.5s forwards;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 24px 40px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+      cursor: default;
+    }
+
+    .stat-card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .stat-number {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .stat-accent {
+      display: inline-block;
+      background: rgba(120,100,255,0.15);
+      border: 0.5px solid rgba(120,100,255,0.3);
+      color: rgba(180,170,255,0.9);
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
   </style>
 </head>
 <body>
@@ -435,6 +516,29 @@
       </a>
     </div>
   </section>
+
+  <!-- BIO -->
+  <div class="bio-section" id="bio">
+    <p class="bio-text">
+      Hello. I am <span class="bio-name">signalsupport</span>, known online as <span class="bio-name">mvrines3122</span>.<br><br>
+      I am a <span class="bio-highlight">former United States Marine Intelligence Specialist</span> and a systems engineer and game developer specializing in
+      <span class="bio-highlight">large-scale, performance-critical experiences</span>. I have worked directly with major content creators and established game producers
+      across Roblox and Steam, delivering robust gameplay systems, proprietary frameworks, and high-reliability infrastructure. I am recognized for building
+      technically ambitious projects, solving complex engineering problems, and leading development on experiences that sustain
+      <span class="bio-highlight">high concurrency and long-term player retention</span>.<br><br>
+      I love data structures and complex work.
+    </p>
+
+    <div class="stat-wrap">
+      <div class="stat-card">
+        <div class="stat-accent">Milestone</div>
+        <div class="stat-number" id="visit-counter">0</div>
+        <div class="stat-label">Contributed to visits</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 80px;"></div>
 
   <div class="divider"></div>
 
@@ -706,6 +810,61 @@
   </div>
 
   <script>
+    // ── VISIT COUNTER ANIMATION ──
+    (function() {
+      var el = document.getElementById('visit-counter');
+      var stages = [
+        { target: 1000,         duration: 400,  label: null },
+        { target: 99000,        duration: 500,  label: null },
+        { target: 1000000000,   duration: 700,  label: null },
+        { target: 1000000000,   duration: 0,    label: '1B+' }
+      ];
+      var stageIndex = 0;
+      var startTime = null;
+      var startVal = 0;
+
+      function formatNum(n) {
+        if (n >= 1000000000) return '1B+';
+        if (n >= 1000000)    return (n / 1000000).toFixed(1) + 'M';
+        if (n >= 1000)       return Math.round(n / 1000) + 'K';
+        return Math.round(n).toString();
+      }
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+      function runStage(ts) {
+        if (stageIndex >= stages.length) return;
+        var stage = stages[stageIndex];
+        if (stage.label) { el.textContent = stage.label; return; }
+        if (!startTime) startTime = ts;
+        var elapsed = ts - startTime;
+        var progress = Math.min(elapsed / stage.duration, 1);
+        var val = startVal + (stage.target - startVal) * easeOut(progress);
+        el.textContent = formatNum(val);
+        if (progress < 1) {
+          requestAnimationFrame(runStage);
+        } else {
+          startVal = stage.target;
+          startTime = null;
+          stageIndex++;
+          if (stageIndex < stages.length) {
+            setTimeout(function() { requestAnimationFrame(runStage); }, 120);
+          } else {
+            el.textContent = '1B+';
+          }
+        }
+      }
+
+      var observer = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) {
+          observer.disconnect();
+          setTimeout(function() { requestAnimationFrame(runStage); }, 300);
+        }
+      }, { threshold: 0.5 });
+
+      observer.observe(el);
+    })();
+    
     function makeCarousel(trackId, prevId, nextId) {
       var track = document.getElementById(trackId);
       var prev  = document.getElementById(prevId);
