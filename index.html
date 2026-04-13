@@ -483,9 +483,26 @@
       letter-spacing: 0.06em;
       margin-bottom: 14px;
     }
+
+    /* ── CANVAS BACKGROUND ── */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero, .bio-section, .section, .divider, footer, .modal-overlay {
+      position: relative;
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
 
   <!-- HERO -->
   <section class="hero">
@@ -890,6 +907,106 @@
       window.addEventListener('resize', update);
       update();
     }
+    // ── PARTICLE NETWORK BACKGROUND ──
+    (function() {
+      var canvas = document.getElementById('bg-canvas');
+      var ctx = canvas.getContext('2d');
+      var nodes = [];
+      var count = 60;
+      var maxDist = 160;
+      var sideWidth = 260;
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      function spawnNode() {
+        var side = Math.random() < 0.5 ? 'left' : 'right';
+        var x = side === 'left'
+          ? Math.random() * sideWidth
+          : window.innerWidth - Math.random() * sideWidth;
+        return {
+          x: x,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.5 + 1
+        };
+      }
+
+      function init() {
+        nodes = [];
+        for (var i = 0; i < count; i++) nodes.push(spawnNode());
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (var i = 0; i < nodes.length; i++) {
+          var a = nodes[i];
+          for (var j = i + 1; j < nodes.length; j++) {
+            var b = nodes[j];
+            var dx = a.x - b.x;
+            var dy = a.y - b.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < maxDist) {
+              var alpha = (1 - dist / maxDist) * 0.18;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = 'rgba(160,150,255,' + alpha + ')';
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(180,170,255,0.35)';
+          ctx.fill();
+        }
+      }
+
+      function update() {
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          n.x += n.vx;
+          n.y += n.vy;
+
+          var inLeft  = n.x < sideWidth;
+          var inRight = n.x > window.innerWidth - sideWidth;
+
+          if (!inLeft && !inRight) {
+            if (n.x < sideWidth + 10)       n.vx = Math.abs(n.vx);
+            else if (n.x > window.innerWidth - sideWidth - 10) n.vx = -Math.abs(n.vx);
+          }
+
+          if (n.x < 0)                    { n.x = 0;                    n.vx = Math.abs(n.vx); }
+          if (n.x > window.innerWidth)    { n.x = window.innerWidth;    n.vx = -Math.abs(n.vx); }
+          if (n.y < 0)                    { n.y = 0;                    n.vy = Math.abs(n.vy); }
+          if (n.y > window.innerHeight)   { n.y = window.innerHeight;   n.vy = -Math.abs(n.vy); }
+        }
+      }
+
+      function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      window.addEventListener('resize', function() {
+        resize();
+        init();
+      });
+
+      resize();
+      init();
+      loop();
+    })();
 
     makeCarousel('mps-track',      'mps-prev',      'mps-next');
     makeCarousel('featured-track', 'featured-prev', 'featured-next');
